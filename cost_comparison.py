@@ -14,10 +14,10 @@ print(f'The annual travel costs of gasoline-powered car is {gasoline_annual_cost
 print(f'The annual travel costs of diesel-powered car is {diesel_annual_cost}')
 
 if (gasoline_annual_cost > diesel_annual_cost):
-    print(f'The annual travel costs of gasoline-powered car are bigger\
-          than costs of diesel-powered car by {gasoline_annual_cost-diesel_annual_cost} euros')
+    print(f'The annual travel costs of gasoline-powered car are bigger'
+          f'than costs of diesel-powered car by {round(gasoline_annual_cost-diesel_annual_cost, 2)} euros')
 elif(gasoline_annual_cost < diesel_annual_cost):
-    print(f'The annual travel costs of gasoline-powered car are smaller\
-          than costs of diesel-powered car by {diesel_annual_cost-gasoline_annual_cost} euros')
+    print(f'The annual travel costs of gasoline-powered car are smaller'
+        f'than costs of diesel-powered car by {round(diesel_annual_cost-gasoline_annual_cost, 2)} euros')
 else:
     print(f'The annual travel costs of gasoline-powered car are equal to ones of diesel-powered car')        
