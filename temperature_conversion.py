@@ -37,7 +37,7 @@ while True:
         temperature = convert_temperature(degrees, sys_from, sys_to)
 
         if type(temperature) == float:
-            print(f'{degrees} degrees {sys_from} equals {temperature} degrees {sys_to}')
+            print(f'{degrees} degrees {sys_from} equals {temperature:.1f} degrees {sys_to}')
         else:
             print(temperature)
     except ValueError as e:
