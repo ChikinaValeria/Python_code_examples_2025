@@ -1,20 +1,26 @@
-def convert_temperature(degrees, from, to):
-    if from == 'c':
-        if to == 'f':
+def convert_temperature(degrees, sys_from, sys_to):
+    if sys_from == 'c':
+        if sys_to == 'f':
             return degrees*9/5+32
-        if to == 'k':
+        if sys_to == 'k':
             return degrees + 273
-    elif from == 'f':
-        if to == 'c':
+    elif sys_from == 'f':
+        if sys_to == 'c':
             return (degrees - 32)*5/9
-        if to == 'k':
+        if sys_to == 'k':
             return (degrees - 32)*5/9 + 273
-    elif from == 'k':
-        if to == 'c':
+    elif sys_from == 'k':
+        if sys_to == 'c':
             return degrees - 273
-        if to == 'f':
+        if sys_to == 'f':
             return (degrees - 273)*9/5+32
     else:
         print('Invalid input')
-        
 
+
+degrees = float(input('Enter degrees: '))
+sys_from = input('From which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
+sys_to = input('To which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
+temperature = convert_temperature(degrees, sys_from, sys_to)
+
+print(f'{degrees} degrees {sys_from} equals {temperature} degrees {sys_to}')
