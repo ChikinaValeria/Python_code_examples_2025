@@ -1,3 +1,5 @@
+import sys
+
 def convert_temperature(degrees, sys_from, sys_to):
     if sys_from == sys_to:
         raise ValueError ('Invalid input. Systems should be different.')
@@ -18,20 +20,26 @@ def convert_temperature(degrees, sys_from, sys_to):
             return degrees - 273
         if sys_to == 'f':
             return (degrees - 273)*9/5+32
-    else:
-        print('Invalid input')
+
+while True:
+    try:
+        degrees = float(input('Enter degrees: '))
 
 
-degrees = float(input('Enter degrees: '))
-sys_from = input('From which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
-sys_to = input('To which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
-try:
-    temperature = convert_temperature(degrees, sys_from, sys_to)
+    except ValueError:
+        print('Invalid input. Degrees should be numeric.')
+        sys.exit()
 
-    if type(temperature) == float:
-        print(f'{degrees} degrees {sys_from} equals {temperature} degrees {sys_to}')
-    else:
-        print(temperature)
-except ValueError as e:
-    print(e)
+    sys_from = input('From which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
+    sys_to = input('To which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
+
+    try:
+        temperature = convert_temperature(degrees, sys_from, sys_to)
+
+        if type(temperature) == float:
+            print(f'{degrees} degrees {sys_from} equals {temperature} degrees {sys_to}')
+        else:
+            print(temperature)
+    except ValueError as e:
+        print(e)
 
