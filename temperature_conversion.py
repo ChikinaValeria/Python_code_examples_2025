@@ -1,6 +1,8 @@
 def convert_temperature(degrees, sys_from, sys_to):
     if sys_from == sys_to:
         raise ValueError ('Invalid input. Systems should be different.')
+    elif sys_from not in ['c', 'f', 'k'] or sys_to not in ['c', 'f', 'k']:
+        raise ValueError ('Invalid input. Input should be "c", "f" or "k".')
     elif sys_from == 'c':
         if sys_to == 'f':
             return degrees*9/5+32
@@ -31,5 +33,5 @@ try:
     else:
         print(temperature)
 except ValueError as e:
-    print('Invalid input: systems should not be equal!')
+    print(e)
 
