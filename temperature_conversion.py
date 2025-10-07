@@ -1,5 +1,11 @@
 import sys
 
+SYSTEM_NAMES = {
+    'c': 'Celcius',
+    'f': 'Fahrenheit',
+    'k': 'Kelvin'
+}
+
 def convert_temperature(degrees, sys_from, sys_to):
     if sys_from == sys_to:
         raise ValueError ('Invalid input. Systems should be different.')
@@ -37,7 +43,9 @@ while True:
         temperature = convert_temperature(degrees, sys_from, sys_to)
 
         if type(temperature) == float:
-            print(f'{degrees} degrees {sys_from} equals {temperature:.1f} degrees {sys_to}')
+            from_name = SYSTEM_NAMES.get(sys_from.lower())
+            to_name = SYSTEM_NAMES.get(sys_to.lower())
+            print(f'{degrees} {from_name} equals {temperature:.1f} {to_name}')
         else:
             print(temperature)
     except ValueError as e:
