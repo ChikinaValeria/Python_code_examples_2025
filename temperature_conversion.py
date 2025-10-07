@@ -30,8 +30,8 @@ while True:
         print('Invalid input. Degrees should be numeric.')
         sys.exit()
 
-    sys_from = input('From which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
-    sys_to = input('To which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ')
+    sys_from = input('From which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ').lower()
+    sys_to = input('To which system to convert? Type "c" for Celsius, "f" for Fahrenheit and "k" for Kelvin: ').lower()
 
     try:
         temperature = convert_temperature(degrees, sys_from, sys_to)
@@ -43,3 +43,6 @@ while True:
     except ValueError as e:
         print(e)
 
+    jatka = input("Haluatko aloittaa alusta? y/n ")
+    if jatka.lower() != "y":
+        break
