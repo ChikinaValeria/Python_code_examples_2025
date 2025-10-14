@@ -1,6 +1,6 @@
-def is_palindrome(lause):
+def is_palindrome(phrase):
     letters = []
-    for letter in lause:
+    for letter in phrase:
         if letter.isalpha():
             letters.append(letter.lower())
     reversed_letters = letters[::-1]
@@ -29,10 +29,10 @@ for c in candidates:
     print(f'"{c}": {tulos} palindrome')
 
 while True:
-    lause = (input('Enter your phrase: '))
+    phrase = (input('Enter your phrase: '))
 
     try:
-        result = is_palindrome(lause)
+        result = is_palindrome(phrase)
         if result:
             print("It is a palindrome.")
         else:
