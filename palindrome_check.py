@@ -1,4 +1,4 @@
-def palindrome_check(lause):
+def is_palindrome(lause):
     letters = []
     for letter in lause:
         if letter.isalpha():
@@ -27,7 +27,7 @@ candidates = [
 
 for c in candidates:
     tulos = 'EI OLE'
-    if palindrome_check(c):
+    if is_palindrome(c):
         tulos = 'ON'
     print(f'"{c}": {tulos} palindrome')
 
@@ -35,7 +35,7 @@ while True:
     lause = (input('Enter your phrase: '))
 
     try:
-        print(palindrome_check(lause))
+        print(is_palindrome(lause))
     except ValueError as e:
         print(e)
 
