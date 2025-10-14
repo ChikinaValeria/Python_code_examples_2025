@@ -3,7 +3,6 @@ def is_palindrome(lause):
     for letter in lause:
         if letter.isalpha():
             letters.append(letter.lower())
-    print(letters)
     reversed_letters = letters[::-1]
     if len(letters) == 0:
         raise ValueError("Your phrase should contain at least one letter.")
@@ -35,10 +34,15 @@ while True:
     lause = (input('Enter your phrase: '))
 
     try:
-        print(is_palindrome(lause))
+        result = is_palindrome(lause)
+        if result:
+            print("It is a palindrome.")
+        else:
+            print("It is NOT a palindrome.")
+
     except ValueError as e:
         print(e)
 
-    jatka = input("Haluatko aloittaa alusta? y/n ")
-    if jatka.lower() != "y":
+    continue_prompt = input("Do you want to start over? (y/n) ")
+    if continue_prompt.lower() != "y":
         break
