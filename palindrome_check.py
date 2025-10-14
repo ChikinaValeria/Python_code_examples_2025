@@ -1,8 +1,3 @@
-
-def on_palindromi(sana):
-    takaperi = ''.join(list(reversed(sana)))
-    return sana == takaperi
-
 def palindrome_check(lause):
     letters = []
     for letter in lause:
@@ -21,14 +16,20 @@ candidates = [
     'A man, a plan, a canal: Panama.',
     'Iso rikas sika sökösakissa kirosi.',
     '"Aa, viinaa sitruksilla", kallis kurtisaani ivaa.',
-    'Joku satunnainen lause'
+    'Joku satunnainen lause',
+    'Madam, I\'m Adam.',
+    'Never odd or even.',
+    'Was it a car or a cat I saw?',
+    'Mr. Owl ate my metal worm.',
+    'No lemon, no melon.',
+    'Evil rats on no star live.'
 ]
 
 for c in candidates:
     tulos = 'EI OLE'
-    if on_palindromi(e):
+    if palindrome_check(c):
         tulos = 'ON'
-    print(f'"{e}": {tulos} palindromi')
+    print(f'"{c}": {tulos} palindrome')
 
 while True:
     lause = (input('Enter your phrase: '))
