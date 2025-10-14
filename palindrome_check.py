@@ -4,12 +4,10 @@ def is_palindrome(lause):
         if letter.isalpha():
             letters.append(letter.lower())
     reversed_letters = letters[::-1]
-    if len(letters) == 0:
+    if not reversed_letters:
         raise ValueError("Your phrase should contain at least one letter.")
-    elif letters == reversed_letters:
-        return True
-    else:
-        return False
+    return letters == reversed_letters
+
 
 candidates = [
     'A man, a plan, a canal: Panama.',
