@@ -1,116 +1,63 @@
 import sys
 import string
-import os
 
-# Define the file name where questions are stored
+# file name where questions are stored
 QUIZ_FILE = "quiz_data.txt"
 
 def load_questions(filename):
+    # Reads questions by splitting the file content into blocks
     questions = []
+
     try:
         with open(filename, 'r', encoding='utf-8') as file:
-            lines = [line.rstrip('\n') for line in file]
+            content = file.read()
+            question_blocks = content.strip().split('\n\n')
+
     except FileNotFoundError:
         print(f"Error: The quiz file '{filename}' was not found.")
         sys.exit(1)
 
     option_letters = string.ascii_lowercase
 
-    # State machine based on line content:
-    # 0 = Expecting Question (Start of a new unit)
-    # 1 = Collecting all subsequent data lines (Options + Correct Letter)
-    state = 0
-    current_unit_lines = []
+    # Process one question unit
+    for block in question_blocks:
+        lines = [line.strip() for line in block.split('\n') if line.strip()]
+        # A valid unit must have at least 3 parts: Question, 1 Option, 1 Answer Letter
+        if len(lines) < 3:
+            if block.strip(): # Check if the block contains data
+                print(f"Error: Incomplete data unit found. Expected at least 3 non-blank lines. Found: {block.strip()}")
+                print("Program will terminate.")
+                sys.exit(1)
+            continue
 
-    for i, line in enumerate(lines):
-        is_blank = not line.strip()
+        # Devide into the components
+        question_text = lines[0]           # the question
+        correct_answer = lines[-1].lower() # the answer letter
+        final_options = lines[1:-1]        # the options
 
-        if state == 0:
-            # Expected: Question text (always the first non-blank line)
-            if not is_blank:
-                current_unit_lines.append(line)
-                state = 1
+        num_options = len(final_options)
 
-        elif state == 1:
-            # Collecting all subsequent data lines until a blank line is hit
-            if not is_blank:
-                current_unit_lines.append(line)
-            else:
-                # Blank line hit! This signals the end of the unit.
-
-                # We expect at least the Answer Letter (1) and at least one Option (1)
-                # Total lines (Question + Options + Answer Letter) must be >= 3
-                if len(current_unit_lines) < 3:
-                    print("---")
-                    print(f"Error: Incomplete data unit ending on line {i+1}. Not enough options or answer letter found.")
-                    print("Program will terminate.")
-                    sys.exit(1)
-
-                # --- Finalization and Validation for the completed unit ---
-
-                # 1. Separate the components
-                question_text = current_unit_lines[0]
-                correct_answer = current_unit_lines[-1].strip().lower() # Last line is the answer letter
-                final_options = current_unit_lines[1:-1] # All lines between Q and Answer are options
-
-                # 2. Store the finalized dictionary
-                current_unit = {
-                    'question': question_text,
-                    'options': final_options,
-                    'correct_answer': correct_answer
-                }
-
-                # 3. Validation check
-                num_options = len(final_options)
-
-                if correct_answer not in option_letters[:num_options] or len(correct_answer) != 1:
-                    print("---")
-                    print("Critical Error: Invalid correct answer letter in the quiz file!")
-                    print(f"Question: {current_unit['question']}")
-                    print(f"Options found: {num_options}")
-                    print(f"Expected one of: {option_letters[:num_options]}. Got: '{correct_answer}'")
-                    print("The program will now terminate.")
-                    sys.exit(1)
-
-                # 4. Unit is validated, save it and reset for the next one
-                questions.append(current_unit)
-                current_unit_lines = []
-                state = 0 # Look for the next question
-
-    # Final check: Handle the last unit if the file did not end with a blank line
-    if state == 1 and len(current_unit_lines) >= 3:
-        print("---")
-        print("Warning: Quiz file may be missing the final blank line separator. Processing the last unit.")
-
-        try:
-            question_text = current_unit_lines[0]
-            correct_answer = current_unit_lines[-1].strip().lower()
-            final_options = current_unit_lines[1:-1]
-            num_options = len(final_options)
-
-            if correct_answer not in option_letters[:num_options] or len(correct_answer) != 1:
-                raise ValueError("Invalid final answer letter during finalization.")
-
-            questions.append({
-                'question': question_text,
-                'options': final_options,
-                'correct_answer': correct_answer
-            })
-        except (IndexError, ValueError):
-            print("Error: Incomplete data in the final unit. Program will terminate.")
+        # check if the answer letter exist in the options provided?
+        if correct_answer not in option_letters[:num_options] or len(correct_answer) != 1:
+            print("Critical Error: Invalid correct answer letter in the quiz file!")
+            print(f"Question: {question_text}")
+            print(f"Options found: {num_options}")
+            print(f"Expected one of: {option_letters[:num_options]}. Got: '{correct_answer}'")
+            print("The program will now terminate.")
             sys.exit(1)
 
-    elif state == 1 and len(current_unit_lines) < 3:
-         print("---")
-         print("Error: File ended unexpectedly with incomplete data. Program will terminate.")
-         sys.exit(1)
+        # making the dictionary
+        questions.append({
+            'question': question_text,
+            'options': final_options,
+            'correct_answer': correct_answer
+        })
 
     return questions
 
 
 def run_quiz(questions):
     # displaying questions to the player and calculating the score.
-
     if not questions:
         print("No questions were loaded. Quiz cannot start.")
         return
@@ -151,12 +98,10 @@ def run_quiz(questions):
         else:
             print(f"Wrong. The correct answer was {correct_answer.upper()}.")
 
-    print("\nQuiz Finished!)
+    print("\nQuiz Finished!")
     print(f"You got {score}/{total_questions} right.")
 
 
-# 1. Load the data
-all_questions = load_questions(QUIZ_FILE)
 
-# 2. Run the quiz
+all_questions = load_questions(QUIZ_FILE)
 run_quiz(all_questions)
