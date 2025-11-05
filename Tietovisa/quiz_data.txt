@@ -1,0 +1,41 @@
+Which of the following is not a member of the Monty Python comedy group?
+Michael Palin
+Terry Jones
+Charlie Chaplin
+c
+
+Which of the following data structures stores data in a Last-In, First-Out (LIFO) manner?
+Queue
+List
+Set
+Dictionary
+Stack
+e
+
+Who is the original developer of the Python programming language?
+Larry Wall
+Bjarne Stroustrup
+Guido van Rossum
+c
+
+Is Python a compiled or an interpreted language?
+Compiled
+Interpreted
+b
+
+The chemical symbol for which element is Si?
+silicon
+selenium
+tin
+a
+
+Which HTML tag is used to define the internal style sheet?
+<style>
+<script>
+<css>
+<link>
+a
+
+Is the Earth flat?
+No
+a
